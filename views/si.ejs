@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        form{
+            padding: 50px;
+        }
+        div {
+            
+        }
+        
+        input[type=submit],input[type=password],input[type=email]{
+            width: 100%;
+            margin: 8px 0;
+            padding: 12px 12px;
+            align-items: center;
+            display: inline-block;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+        .box{
+            height: 70%;
+            width: 40%;
+            background-color: aquamarine;
+            margin: auto;
+            margin-top: 10%;
+        }
+        input[type=submit]{
+            background-color: salmon;
+            color: white;
+        }
+        input[type=submit]:hover{
+            background-color: saddlebrown;
+        }
+        @media only screen and (max-width:600px){
+        
+                .box{
+                    width: 100%;
+                    background-color: aqua;
+                }
+            
+        }
+    </style>
+</head>
+
+<body>
+    
+        <div class="box">
+        <form action="si" method="POST" >
+            <label for="email">Enter Email</label><br>
+            <input type="email" name="email" id="email" placeholder="Email.."><br>
+            <label for="fpass">Enter New Password</label><br>
+            <input type="password" name="password" id="fpass" placeholder="Enter pass.."><br>
+            <input type="submit" value="Click to register"><br>
+        </form>
+        </div>
+    
+
+</body>
+
+</html>

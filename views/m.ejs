@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        
+        .f{
+            height: 50%;
+            width: 50%;
+            margin: auto;
+            background-color: aquamarine;
+            padding: 30px;
+          
+        }
+        input[type=email],input[type=password],input[type=submit],a button{
+
+            width: 100%;
+            margin: 8px 0;
+            box-sizing: border-box;
+            padding: 10px;
+            border-radius: 8px;
+
+        }
+        input[type=submit]{
+            color: white;
+            background-color: brown;
+
+        }
+        input[type=submit]:hover{
+            background-color: saddlebrown;
+        }
+        a button{
+            color: white;
+            background-color: brown;
+        }
+        a button:hover{
+              background-color:saddlebrown;
+        }
+    </style>
+</head>
+<body>
+    <div class="f">
+        <form action="/m" method="POST">
+            <label for="email" >Enter Email:</label>
+            <input type="email" id="email" name="email" placeholder="Email..">
+            <br>
+            <label for="password">Enter Password:</label>
+            <input type="password"  id="password" name ="password" placeholder="Password.."><br>
+            <input type="submit" value="Click to login"><br>
+        </form>
+         <a href="si.ejs"><button id="signp">Click to register</button></a>
+    </div>
+</body>
+</html>
