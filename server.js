@@ -23,6 +23,11 @@ app.set('view-engine','ejs')
 app.use(express.urlencoded({extended:false}))
 app.get('/',(req,res)=>{
     res.render('index.ejs')
+    
+})
+app.get('/logout',(req,res)=>{
+    res.render('logout.ejs');
+    
 })
 app.get('/m',(req,res)=>{
     res.render('m.ejs')
@@ -46,13 +51,14 @@ app.post('/m',(req,res)=>{
         if (results.length > 0) {
             // User found, login successful
             console.log('Login successful:', results[0]);
-            return res.send('Login successful! Welcome, ' + results[0].email);
+            return res.redirect('/logout');
         } else {
             // User not found, invalid credentials
             return res.status(401).send('Invalid email or password. Please try again.');
         }
     });
 })
+
 app.get('/si.ejs',(req,res)=>{
     res.render('si.ejs')
 })
@@ -70,4 +76,5 @@ app.post('/si', (req,res)=>{
     });
 
 })
+
 app.listen(3000);

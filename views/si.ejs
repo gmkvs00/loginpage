@@ -13,7 +13,7 @@
             
         }
         
-        input[type=submit],input[type=password],input[type=email]{
+        input[type=submit],input[type=password],input[type=email],a button{
             width: 100%;
             margin: 8px 0;
             padding: 12px 12px;
@@ -36,14 +36,14 @@
         input[type=submit]:hover{
             background-color: saddlebrown;
         }
-        @media only screen and (max-width:600px){
-        
-                .box{
-                    width: 100%;
-                    background-color: aqua;
-                }
-            
+        a button{
+            background-color: brown;
+            color: white;
         }
+        a button:hover{
+            background-color: saddlebrown;
+        }
+       
     </style>
 </head>
 
@@ -56,7 +56,9 @@
             <label for="fpass">Enter New Password</label><br>
             <input type="password" name="password" id="fpass" placeholder="Enter pass.."><br>
             <input type="submit" value="Click to register"><br>
+            
         </form>
+        <a href="/m"><button id="LogOut">Back to login page</button></a>
         </div>
     
 
