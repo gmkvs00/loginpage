@@ -22,7 +22,7 @@ db.connect((err)=>{
 app.set('view-engine','ejs')
 app.use(express.urlencoded({extended:false}))
 app.get('/',(req,res)=>{
-    res.render('index.ejs')
+    res.render('index.ejs',{email:email[0].email});
     
 })
 app.get('/logout',(req,res)=>{
@@ -51,7 +51,7 @@ app.post('/m',(req,res)=>{
         if (results.length > 0) {
             // User found, login successful
             console.log('Login successful:', results[0]);
-            return res.redirect('/logout');
+            return res.render('logout.ejs', { email: results[0].email });
         } else {
             // User not found, invalid credentials
             return res.status(401).send('Invalid email or password. Please try again.');
@@ -72,7 +72,7 @@ app.post('/si', (req,res)=>{
             return res.status(500).send('Error occurred during signup: ' + err.message);
         }
         console.log('User saved successfully');
-        res.send('Signup successful!');
+        return res.send('Signup successful!');
     });
 
 })
