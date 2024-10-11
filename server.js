@@ -29,8 +29,12 @@ app.get('/logout',(req,res)=>{
     res.render('logout.ejs');
     
 })
+app.get('/dashboard',(req,res)=>{
+
+    res.render('dashboard.ejs',{email:req.query.email});
+})
 app.get('/m',(req,res)=>{
-    res.render('m.ejs')
+    res.render('m.ejs');
 })
 app.post('/m',(req,res)=>{
 
@@ -51,7 +55,7 @@ app.post('/m',(req,res)=>{
         if (results.length > 0) {
             // User found, login successful
             console.log('Login successful:', results[0]);
-            return res.render('logout.ejs', { email: results[0].email });
+            return res.redirect(`/dashboard?email=${encodeURIComponent(email)}`);
         } else {
             // User not found, invalid credentials
             return res.status(401).send('Invalid email or password. Please try again.');
