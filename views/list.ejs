@@ -10,25 +10,35 @@
   <style>
     .container {
       margin-top: 20px;
+      padding-bottom: 100px;
     }
+
     table {
       width: 100%;
       margin: auto;
+    }
+
+    /* Additional styles for better appearance */
+    h2, h3 {
+      color: #007bff; /* Bootstrap primary color */
+    }
+
+    button {
+      margin-left: 5px; /* Space between buttons */
     }
   </style>
 </head>
 
 <body>
-    <a href="/logout">Logout</a>
+  <a href="/logout">Logout</a>
   <div class="container">
-    <h2 class="text-center">user List</h2>
+    <h2 class="text-center">User List</h2>
 
     <!-- Table for listing users -->
     <table class="table table-bordered">
       <thead>
         <tr>
-           
-          <th>ID</th>
+          <th>#</th> <!-- Sequence number header -->
           <th>Name</th>
           <th>Address</th>
           <th>Email</th>
@@ -36,45 +46,43 @@
         </tr>
       </thead>
       <tbody>
-        <% user_d.forEach(user => { %>
+        <% for (let i = 0; i < user_d.length; i++) { %>
         <tr>
-       
-          <td><%= user.id %></td>
-          <td><%= user.NAME%></td>
-          <td><%= user.ADRESS  %></td>
-          <td><%= user.EMAIL %></td>
+          <td><%= i + 1 %></td> <!-- Displaying the sequence number -->
+          <td><%= user_d[i].NAME %></td>
+          <td><%= user_d[i].ADRESS %></td>
+          <td><%= user_d[i].EMAIL %></td>
           <td>
             <!-- Form to delete user -->
-            <form action="/delete/<%= user.id %>" method="POST" style="display:inline;">
+            <form action="/delete/<%= user_d[i].id %>" method="POST" style="display:inline;">
               <button type="submit" class="btn btn-danger">Delete</button>
             </form>
           </td>
         </tr>
-        <% }); %>
+        <% } %>
       </tbody>
     </table>
 
     <!-- Form to add a new user -->
     <h3 class="text-center mt-5">Add a New User</h3>
     <form action="/add" method="POST">
-      
       <div class="mb-3">
         <label for="name" class="form-label">Name:</label>
         <input type="text" class="form-control" id="name" name="name" required>
       </div>
-    
+
       <div class="mb-3">
         <label for="adress" class="form-label">Address:</label>
         <input type="text" class="form-control" id="adress" name="adress" required>
       </div>
       <div class="mb-3">
+        <div id="err"></div>
         <label for="email" class="form-label">Email:</label>
         <input type="email" class="form-control" id="email" name="email" required>
       </div>
       <button type="submit" class="btn btn-success">Add User</button>
     </form>
   </div>
-
 </body>
 
 </html>

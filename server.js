@@ -35,11 +35,12 @@ app.use(session({
     secret: 'd134feecbd995970fbb947e252368f98874efde1f662b03636d6ad268867f2ee', // Replace with a secure key for session encryption
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false } 
+    cookie: { secure: false }
 }));
 
 // View engine setup
 app.set('view engine', 'ejs'); // Corrected to 'view engine'
+
 
 // Routes
 app.get('/', (req, res) => {
@@ -63,45 +64,56 @@ app.get('/dashboard', (req, res) => {
     res.render('dashboard.ejs', { email: req.session.email }); // Render dashboard with email from session
 });
 
-app.get('/list',(req,res)=>{
-   if (!req.session.email) { // Check if user is logged in
+app.get('/list', (req, res) => {
+    if (!req.session.email) { // Check if user is logged in
         return res.redirect('/'); // Redirect to login if not logged in
     }
-    const query='SELECT * FROM user_d';
-    db.query(query,(err,results)=>{
-        if(err){
-            console.error('error found',err);
+    const query = 'SELECT * FROM user_d';
+    db.query(query, (err, results) => {
+        if (err) {
+            console.error('error found', err);
             return res.status(500).send('error fetching data ');
         }
         console.log("Fetched Users Count:", results.length);
         console.log("Fetched Users Data:", results);
-        
 
-        res.render('list.ejs',{user_d:results});
+
+        res.render('list.ejs', { user_d: results });
 
     })
 });
 
-app.post('/add',(req,res)=>{
-    const {name, adress,email}=req.body;
+app.post('/add', (req, res) => {
+    const { name, adress, email } = req.body;
     console.log("Received Data:", { name, adress, email });
-    const query='INSERT INTO user_d (name, adress, email) VALUES(?,?,?)';
+    
+    const check = 'select *from user_d where email=?'
+    db.query(check, [email], (err, results) => {
+        if (err) {
+            console.error('email error', err);
+            return res.status(500).send(`Email response :${err.message}`)
+        }
+        if(results.length>0){
+            return res.status(500).send('email alaridy exist');
+        }
 
-    db.query(query,[name,adress,email],(err,results)=>{
-         if(err){
-            console.error("error found",err);
+    })
+    const query = 'INSERT INTO user_d (name, adress, email) VALUES(?,?,?)';
+    db.query(query, [name, adress, email], (err, results) => {
+        if (err) {
+            console.error("error found", err);
             return res.status(500).send(`error found ading the data:${err.message}`);
-         }
-         res.redirect('/list');
+        }
+        res.redirect('/list');
     })
 })
 
-app.post('/delete/:id',(req,res)=>{
-    const userID=req.params.id;
-    const query='DELETE FROM user_d WHERE id=?';
-    db.query(query,[userID],(err,result)=>{
-        if(err){
-            console.error('cannot delete',err);
+app.post('/delete/:id', (req, res) => {
+    const userID = req.params.id;
+    const query = 'DELETE FROM user_d WHERE id=?';
+    db.query(query, [userID], (err, result) => {
+        if (err) {
+            console.error('cannot delete', err);
             return res.status(500).send('error deleting data');
         }
         res.redirect('/list');
