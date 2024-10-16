@@ -5,54 +5,105 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        
-        .f{
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%); /* Cool gradient background */
+            display: flex;
+            justify-content: center;
             align-items: center;
-            height: 400px;
-            width: 400px;
-            margin: auto;
-            background-color: rgb(136, 136, 237);
-            padding: 50px;
-            box-shadow:2px 2px;
-          
+            height: 100vh;
+            margin: 0;
         }
-        input[type=email],input[type=password],input[type=submit],a button{
 
+        .f {
+            background-color: #ffffff; /* Clean white background for contrast */
+            padding: 50px;
             width: 100%;
+            max-width: 400px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Enhanced shadow for depth */
+            border-radius: 12px;
+            margin: auto;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-size: 14px;
+            margin-bottom: 6px;
+            color: #333;
+        }
+
+        input[type=email], input[type=password] {
+            width: 100%;
+            padding: 12px;
             margin: 8px 0;
             box-sizing: border-box;
-            padding: 10px;
             border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
 
+        input[type=email]:focus, input[type=password]:focus {
+            border-color: #66a6ff;
+            box-shadow: 0 0 5px rgba(102, 166, 255, 0.5); /* Subtle shadow on focus */
         }
-        input[type=submit]{
-            color: white;
-            background-color: brown;
 
-        }
-        input[type=submit]:hover{
-            background-color: saddlebrown;
-        }
-        a button{
+        input[type=submit] {
             color: white;
-            background-color: brown;
+            background-color: #ff6f61; /* Attractive coral color for submit button */
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
         }
-        a button:hover{
-              background-color:saddlebrown;
+
+        input[type=submit]:hover {
+            background-color: #ff4b47; /* Darker coral on hover */
+            transform: scale(1.05); /* Slight zoom on hover */
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        a button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 16px;
+            background-color: #66a6ff; /* Soft blue for the secondary button */
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        a button:hover {
+            background-color: #4a90e2; /* Darker blue on hover */
+            transform: scale(1.05); /* Slight zoom on hover */
         }
     </style>
 </head>
 <body>
     <div class="f">
         <form action="/m" method="POST">
-            <label for="email" >Enter Email:</label>
-            <input type="email" id="email" name="email" placeholder="Email..">
+            <label for="email">Enter Email:</label>
+            <input type="email" id="email" name="email" placeholder="Email.." required>
             <br>
             <label for="password">Enter Password:</label>
-            <input type="password"  id="password" name ="password" placeholder="Password.."><br>
-            <input type="submit" value="Click to login"><br>
+            <input type="password" id="password" name="password" placeholder="Password.." required>
+            <br>
+            <input type="submit" value="Click to login">
         </form>
-         <a href="si.ejs"><button id="signp">Click to register</button></a>
+        <a href="si.ejs"><button id="signp">Click to register</button></a>
     </div>
 </body>
 </html>
