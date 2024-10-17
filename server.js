@@ -65,30 +65,73 @@ app.get('/dashboard', (req, res) => {
 });
 
 app.get('/list', (req, res) => {
-    if (!req.session.email) { // Check if user is logged in
-        return res.redirect('/'); // Redirect to login if not logged in
+    const userID=req.session.userID; //session for user id 
+    console.log('User ID stored in session:', req.session.userID);
+
+    if(!userID){
+        return res.redirect('/m'); // redirect if no session user ID
     }
-    const query = 'SELECT * FROM user_d';
-    db.query(query, (err, results) => {
-        if (err) {
-            console.error('error found', err);
-            return res.status(500).send('error fetching data ');
+ 
+    const query='SELECT * FROM user_d where id1=? '; // Adjust the query based on your schema
+    db.query(query,[userID],(err,results)=>{
+        if(err){
+            console.error('Error fetching data:', err);
+            return res.status(500).send('Error found');
         }
-        console.log("Fetched Users Count:", results.length);
-        console.log("Fetched Users Data:", results);
-
-
-        res.render('list.ejs', { user_d: results });
-
-    })
-});
+        res.render('list.ejs',{user_d:results});
+    });
+ });
+ 
+app.get('/add',(req,res)=>{
+    const userID=req.session.userID;
+    if(!userID){
+        return res.redirect('/m');
+    }
+    res.render('add.ejs');
+})
 
 app.post('/add', (req, res) => {
-    const { name, adress, email } = req.body;
-    console.log("Received Data:", { name, adress, email });
-    
-    const check = 'select *from user_d where email=?'
-    db.query(check, [email], (err, results) => {
+    const {
+        name,
+        adress, 
+        email,
+        gender,
+        cmt, 
+        Subject,
+        range,
+        fl, 
+        v1,
+        v2,
+        v3,
+        color,
+        birthday,
+        djoin,
+        fw, 
+        phon 
+    } = req.body;
+    console.log("Received Data:", {  name,
+        adress, 
+        email,
+        gender,
+        cmt, 
+        Subject,
+        range,
+        fl, 
+        v1,
+        v2,
+        v3,
+        color,
+        birthday,
+        djoin,
+        fw, 
+        phon  });
+    const userID=req.session.userID;
+    const bike=v1?true:false;
+    const car=v2?true:false;
+    const both=v3?true:false;
+
+    const check = 'select *from user_d where email=? AND id1=?';
+    db.query(check, [email,userID], (err, results) => {
         if (err) {
             console.error('email error', err);
             return res.status(500).send(`Email response :${err.message}`)
@@ -98,8 +141,27 @@ app.post('/add', (req, res) => {
         }
 
     })
-    const query = 'INSERT INTO user_d (name, adress, email) VALUES(?,?,?)';
-    db.query(query, [name, adress, email], (err, results) => {
+    const query = `INSERT INTO user_d 
+    (NAME, ADRESS, EMAIL, gender, comment, subject, capacity, programing_language, bike, car, h_both, fav_color, birthday, month_ofJoin, Quantity_ofC, phon_number) 
+    VALUES 
+    (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)`;
+    
+    db.query(query, [ name,
+        adress,
+        email,
+        gender,
+        cmt,
+        Subject,
+        range,
+        fl,
+        bike,
+        car,
+        both,
+        color,
+        birthday,
+        djoin,
+        fw,
+        phon], (err, results) => {
         if (err) {
             console.error("error found", err);
             return res.status(500).send(`error found ading the data:${err.message}`);
@@ -120,6 +182,10 @@ app.post('/delete/:id', (req, res) => {
     })
 })
 
+app.get('/edit/:id',(req,res)=>{
+    const userID=req.params.id;
+
+})
 
 app.get('/m', (req, res) => {
     res.render('m.ejs');
@@ -146,6 +212,7 @@ app.post('/m', async (req, res) => {
             if (validPassword) {
                 console.log('Login successful:', results[0]);
                 req.session.email = email;  // Store email in session
+                req.session.userID=results[0].id1;
                 return res.redirect('/dashboard'); // Redirect to dashboard
             } else {
                 return res.status(401).send('Invalid email or password. Please try again.');
@@ -177,7 +244,7 @@ app.post('/si', async (req, res) => {
             return res.status(500).send('Error occurred during signup: ' + err.message);
         }
         console.log('User saved successfully');
-        return res.send('Signup successful!');
+        return res.redirect('/m');
     });
 });
 

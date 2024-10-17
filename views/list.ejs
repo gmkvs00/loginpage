@@ -19,12 +19,15 @@
     }
 
     /* Additional styles for better appearance */
-    h2, h3 {
-      color: #007bff; /* Bootstrap primary color */
+    h2,
+    h3 {
+      color: #007bff;
+      /* Bootstrap primary color */
     }
 
     button {
-      margin-left: 5px; /* Space between buttons */
+      margin-left: 5px;
+      /* Space between buttons */
     }
   </style>
 </head>
@@ -42,46 +45,70 @@
           <th>Name</th>
           <th>Address</th>
           <th>Email</th>
-          <th>Actions</th>
+          <th>Gender</th>
+          <th>Comment</th>
+          <th>Subject</th>
+          <th>Capacity</th>
+          <th>Favorite Language</th>
+          <th>Bike</th>
+          <th>Car</th>
+          <th>Both</th>
+          <th>Favorite Color</th>
+          <th>Birthday</th>
+          <th>Joining Month</th>
+          <th>Cigarettes/Day</th>
+          <th>Phone Number</th>
         </tr>
       </thead>
       <tbody>
-        <% for (let i = 0; i < user_d.length; i++) { %>
-        <tr>
-          <td><%= i + 1 %></td> <!-- Displaying the sequence number -->
-          <td><%= user_d[i].NAME %></td>
-          <td><%= user_d[i].ADRESS %></td>
-          <td><%= user_d[i].EMAIL %></td>
-          <td>
-            <!-- Form to delete user -->
-            <form action="/delete/<%= user_d[i].id %>" method="POST" style="display:inline;">
-              <button type="submit" class="btn btn-danger">Delete</button>
-            </form>
-          </td>
-        </tr>
-        <% } %>
+        <% for (let i=0; i < user_d.length; i++) { %>
+          <tr>
+            <td>
+              <%= i + 1 %>
+            </td> <!-- Displaying the sequence number -->
+            <td>
+              <%= user_d[i].NAME %>
+            </td>
+            <td>
+              <%= user_d[i].ADRESS %>
+            </td>
+            <td>
+              <%= user_d[i].EMAIL %>
+            </td>
+            <td>
+              <%= user_d[i].gender%>
+            </td>
+            <td>
+              <%= user_d[i].comment%>
+            </td>
+            <td><%=user_d[i].subject%></td>
+            <td><%=user_d[i].capacity%></td>
+            <td><%=user_d[i].programing_language%></td>
+            <td><%=user_d[i].bike%></td>
+            <td><%=user_d[i].car%></td>
+            <td><%=user_d[i].h_both%></td>
+            <td><%=user_d[i].fav_color%></td>
+            <td><%=user_d[i].birthday%></td>
+            <td><%=user_d[i].month_ofJoin%></td>
+            <td><%=user_d[i].Quantity_ofC%></td>
+            <td><%=user_d[i].phon_number%></td>
+
+            <td>
+              <!-- Form to delete user -->
+              <form action="/delete/<%= user_d[i].id %>" method="POST" style="display:inline;">
+                <button type="submit" class="btn btn-danger">Delete</button>
+              </form>
+              <form action="/edit/<%= user_d[i].id%>">
+                <a href="edit"> <button>Edit</button></a>
+              </form>
+            </td>
+          </tr>
+          <% } %>
       </tbody>
     </table>
 
     <!-- Form to add a new user -->
-    <h3 class="text-center mt-5">Add a New User</h3>
-    <form action="/add" method="POST">
-      <div class="mb-3">
-        <label for="name" class="form-label">Name:</label>
-        <input type="text" class="form-control" id="name" name="name" required>
-      </div>
-
-      <div class="mb-3">
-        <label for="adress" class="form-label">Address:</label>
-        <input type="text" class="form-control" id="adress" name="adress" required>
-      </div>
-      <div class="mb-3">
-        <div id="err"></div>
-        <label for="email" class="form-label">Email:</label>
-        <input type="email" class="form-control" id="email" name="email" required>
-      </div>
-      <button type="submit" class="btn btn-success">Add User</button>
-    </form>
+    <a href="/add">add data to table </a>
   </div>
 </body>
 
