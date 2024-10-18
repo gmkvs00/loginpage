@@ -59,8 +59,9 @@ input[type="radio"] {
 }
 
 input[type="color"] {
-    border: none; /* Remove border for color input */
-    width: auto; /* Auto width for color input */
+    border: 3px rgb(239, 0, 0) ; /* Remove border for color input */
+    width: 30% ; /* Auto width for color input */
+    padding: 2px;
 }
 
 input[type="submit"],
@@ -139,9 +140,7 @@ textarea {
             <div>Your Capcity(0to 10)
                 <input type="range" name="range" min="0" max="10" id="range">
                 <p>Value: <span id="demo"></span></p>
-            </div>
-            <div><input type="reset" name="reset">
-            </div>
+           
             <div> Chouse your favirout programing language <br>
                   <label for="html"></label>
                  <input type="radio" id="html" name="fl" value="HTML">
@@ -161,7 +160,7 @@ textarea {
 
             </div>
             <div> <label for="color"></label>select your fav color <br>
-                <input type="color">
+                <input type="color" name="color" required>
             </div>
             <div>
                  <label for="birthday">Birthday:</label>
@@ -179,7 +178,9 @@ textarea {
                  <label for="phon">Enter Phone no</label>
                  <input type="tel" id="phon" name="phon" pattern="[0-9]{10}" required>
             </div>
-            <button type="submit" class="btn btn-success">Add User</button>
+            <button type="submit" class="btn btn-success">Add User</button> </div>
+            <div><input type="reset" name="reset">
+            </div>
         </form>
     </fieldset>
     <script>

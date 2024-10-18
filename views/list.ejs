@@ -16,24 +16,48 @@
     table {
       width: 100%;
       margin: auto;
+      overflow: hidden;
     }
 
-    /* Additional styles for better appearance */
-    h2,
-    h3 {
+    h2, h3 {
       color: #007bff;
       /* Bootstrap primary color */
     }
 
     button {
       margin-left: 5px;
-      /* Space between buttons */
+    }
+
+    /* Additional styles for better appearance */
+    th {
+      background-color: #f8f9fa;
+    }
+
+    .delete-btn {
+      margin-left: 5px;
+    }
+
+    .edit-btn {
+      margin-left: 5px;
+    }
+
+    .table td {
+      vertical-align: middle; /* Center align the content vertically */
+    }
+
+    .btn-link {
+      text-decoration: none; /* Remove underline */
+      color: #007bff; /* Bootstrap primary color */
+    }
+
+    .btn-link:hover {
+      text-decoration: underline; /* Underline on hover for better UX */
     }
   </style>
 </head>
 
 <body>
-  <a href="/logout">Logout</a>
+  <a href="/logout" class="btn btn-danger">Logout</a>
   <div class="container">
     <h2 class="text-center">User List</h2>
 
@@ -41,7 +65,8 @@
     <table class="table table-bordered">
       <thead>
         <tr>
-          <th>#</th> <!-- Sequence number header -->
+          <th>#</th>
+          <th>IDF</th>
           <th>Name</th>
           <th>Address</th>
           <th>Email</th>
@@ -58,57 +83,44 @@
           <th>Joining Month</th>
           <th>Cigarettes/Day</th>
           <th>Phone Number</th>
+          <th>Actions</th> <!-- Added a header for action buttons -->
         </tr>
       </thead>
       <tbody>
-        <% for (let i=0; i < user_d.length; i++) { %>
+        <% for (let i = 0; i < user_d.length; i++) { %>
           <tr>
-            <td>
-              <%= i + 1 %>
-            </td> <!-- Displaying the sequence number -->
-            <td>
-              <%= user_d[i].NAME %>
-            </td>
-            <td>
-              <%= user_d[i].ADRESS %>
-            </td>
-            <td>
-              <%= user_d[i].EMAIL %>
-            </td>
-            <td>
-              <%= user_d[i].gender%>
-            </td>
-            <td>
-              <%= user_d[i].comment%>
-            </td>
-            <td><%=user_d[i].subject%></td>
-            <td><%=user_d[i].capacity%></td>
-            <td><%=user_d[i].programing_language%></td>
-            <td><%=user_d[i].bike%></td>
-            <td><%=user_d[i].car%></td>
-            <td><%=user_d[i].h_both%></td>
-            <td><%=user_d[i].fav_color%></td>
-            <td><%=user_d[i].birthday%></td>
-            <td><%=user_d[i].month_ofJoin%></td>
-            <td><%=user_d[i].Quantity_ofC%></td>
-            <td><%=user_d[i].phon_number%></td>
-
+            <td><%= i + 1 %></td>
+            <td><%= user_d[i].id1 %></td>
+            <td><%= user_d[i].NAME %></td>
+            <td><%= user_d[i].ADRESS %></td>
+            <td><%= user_d[i].EMAIL %></td>
+            <td><%= user_d[i].gender %></td>
+            <td><%= user_d[i].comment %></td>
+            <td><%= user_d[i].subject %></td>
+            <td><%= user_d[i].capacity %></td>
+            <td><%= user_d[i].programing_language %></td>
+            <td><%= user_d[i].bike ? 'Yes' : 'No' %></td>
+            <td><%= user_d[i].car ? 'Yes' : 'No' %></td>
+            <td><%= user_d[i].h_both ? 'Yes' : 'No' %></td>
+            <td><%= user_d[i].fav_color %></td>
+            <td><%= user_d[i].birthday %></td>
+            <td><%= user_d[i].month_ofJoin %></td>
+            <td><%= user_d[i].Quantity_ofC %></td>
+            <td><%= user_d[i].phon_number %></td>
             <td>
               <!-- Form to delete user -->
               <form action="/delete/<%= user_d[i].id %>" method="POST" style="display:inline;">
-                <button type="submit" class="btn btn-danger">Delete</button>
+                <button type="submit" class="btn btn-danger delete-btn">Delete</button>
               </form>
-              <form action="/edit/<%= user_d[i].id%>">
-                <a href="edit"> <button>Edit</button></a>
-              </form>
+              <a href="/edit/<%= user_d[i].id %>" class="btn btn-primary edit-btn">Edit</a>
             </td>
           </tr>
-          <% } %>
+        <% } %>
       </tbody>
     </table>
 
-    <!-- Form to add a new user -->
-    <a href="/add">add data to table </a>
+    <!-- Button to add a new user -->
+    <a href="/add" class="btn btn-success">Add Data to Table</a>
   </div>
 </body>
 
