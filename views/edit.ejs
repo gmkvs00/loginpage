@@ -5,6 +5,96 @@
     <title>Document</title>
 </head>
 <body>
+    <div>Edit user details</div>
+    <form action="/update/<%=user.id%>" method="POST">
+        <div class="mb-3">
+            <label for="name" class="form-label">Name:</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="Name" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="adress" class="form-label">Address:</label>
+            <input type="text" class="form-control" id="adress" name="adress" required>
+        </div>
+        <div class="mb-3">
+            <div id="err"></div>
+            <label for="email" class="form-label">Email:</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+        <div>
+            <label for="Gender" >Gender</label>
+            <select name="gender" id="gender" >
+                <option value="" disabled selected>Select Gender</option>
+                <option value="male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+        </div>
+        <div>Give your comment below:- <br><textarea name="cmt" rows="10" cols="50"
+                placeholder="Please write hear"></textarea>
+        </div>
+        <div> Chose Your Subject <input list="Subject" name="Subject">
+            <datalist id="Subject">
+                <option value="C++">C++</option>
+                <option value="Java">Java</option>
+                <option value="JavaScript">JavaScript</option>
+            </datalist>
+        </div>
+        <div>Your Capcity(0to 10)
+            <input type="range" name="range" min="0" max="10" id="range">
+            <p>Value: <span id="demo"></span></p>
+       
+        <div> Chouse your favirout programing language <br>
+              <label for="html"></label>
+             <input type="radio" id="html" name="fl" value="HTML">
+              <label for="html">HTML</label><br>
+              <input type="radio" id="css" name="fl" value="CSS">
+              <label for="css">CSS</label><br>
+              <input type="radio" id="javascript" name="fl" value="JavaScript">
+              <label for="javascript">JavaScript</label><br><br>
+        </div>
+        <div> Check box <br>
+            <input type="checkbox" name="v1" id="v1" value="bike">
+            <label for="v1" >I have bike</label>
+            <input type="checkbox" name="v2" id="v2" value="car">
+            <label for="v2" >I have car</label>
+            <input type="checkbox" name="v3" id="v3" value="both">
+            <label for="v3" >I have both </label>
+
+        </div>
+        <div> <label for="color"></label>select your fav color <br>
+            <input type="color" name="color" required>
+        </div>
+       
+        </select>
+        <div>
+             <label for="birthday">Birthday:</label>
+             <input type="date" name="birthday">
+        </div>
+        <div> 
+            <label for="Djoin">Month Of joning</label>
+            <input type="date" name="djoin" id="djoin">
+        </div>
+        <div>
+              <label for="fw">Quantity of Cigrate(in one day)</label>
+              <input type="number" name="fw" min="0" max="20">
+        </div>
+        <div>
+             <label for="phon">Enter Phone no</label>
+             <input type="tel" id="phon" name="phon" pattern="[0-9]{10}" required>
+        </div>
+        <button type="submit" class="btn btn-success">Update</button> </div>
+        <div>
+        </div>
+    </form>
+</fieldset>
+<script>
+    var slider = document.getElementById("range");
+    var output = document.getElementById("demo");
+    output.innerHTML = slider.value;
     
+    slider.oninput = function() {
+      output.innerHTML = this.value;
+    }
+    </script>
 </body>
 </html>

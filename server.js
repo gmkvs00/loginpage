@@ -78,7 +78,53 @@ app.get('/list', (req, res) => {
         res.render('list.ejs', { user_d: results });
     });
 });
-
+app.get('/view:id',(req,res)=>{
+    const userID=req.params.id;
+    if(!req.session.userID){
+       return res.redirect('/');
+    }
+    const query='SELECT *FROM user_d where id=?';
+    db.query(query,[userID],(err,results)=>{
+       if(err){
+        console.error("not found",err);
+        return res.status(500).send('not found'+err.message);
+       }
+       
+        res.render('view.ejs',{user:results[0]});
+    })
+    
+});
+app.get("/edit/:id",(req,res)=>{
+    const userID=req.params.id;
+    const query='select * from user_d where id=?'
+    db.query(query,[userID],(err,results)=>{
+        if(err){
+            console.error("error",err);
+            return res.status(500).send("error fetching data"+err.message);
+        }
+       if(results.length>0){
+        return res.render('edit.ejs',{user:results[0]});
+       }
+       else{
+        res.status(404).send('User not found');
+       }
+    })
+})
+app.post('/update/:id',(req,res)=>{
+    const userID=req.params.id;
+    const { name, email, address, gender, comment, subject, capacity, programing_language, bike, car, h_both, fav_color, birthday, month_ofJoin, Quantity_ofC, phon_number } = req.body;
+    const query = `
+        UPDATE user_d 
+        SET NAME = ?, EMAIL = ?, ADRESS = ?, gender = ?, comment = ?, subject = ?, capacity = ?, programing_language = ?, bike = ?, car = ?, h_both = ?, fav_color = ?, birthday = ?, month_ofJoin = ?, Quantity_ofC = ?, phon_number = ? 
+        WHERE id = ?`;
+        db.query(query, [name, email, address, gender, comment, subject, capacity, programing_language, bike, car, h_both, fav_color, birthday, month_ofJoin, Quantity_ofC, phon_number, userID], (err, results) => {
+            if (err) {
+                console.error('Error updating user:', err);
+                return res.status(500).send('Error updating user');
+            }
+            res.redirect('/views'); 
+        });
+})
 app.get('/add', (req, res) => {
     const userID = req.session.userID;
     if (!userID) {
@@ -164,10 +210,6 @@ app.post('/delete/:id', (req, res) => {
     });
 });
 
-app.get('/edit/:id', (req, res) => {
-    const userID = req.params.id;
-    
-});
 
 app.get('/m', (req, res) => {
     res.render('m.ejs');
