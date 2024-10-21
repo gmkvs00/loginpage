@@ -110,7 +110,7 @@
             <td>
               <!-- Form to delete user -->
               <form action="/delete/<%= user_d[i].id %>" method="POST" style="display:inline;">
-                <button type="submit" class="btn btn-danger delete-btn">Delete</button>
+                <button type="submit" class="btn btn-danger delete-btn" onclick="return confirmDelete();">Delete</button>
               </form>
              <a href="/view<%=user_d[i].id%>"><button>Details</button></a>
             </td>
@@ -123,5 +123,10 @@
     <a href="/add" class="btn btn-success">Add Data to Table</a>
   </div>
 </body>
+<script>
+ function confirmDelete(){
+  return confirm("are you shure you want to delete ");
+ }
+</script>
 
 </html>
