@@ -1,100 +1,124 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Edit User Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        .container {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-    <div>Edit user details</div>
-    <form action="/update/<%=user.id%>" method="POST">
-        <div class="mb-3">
-            <label for="name" class="form-label">Name:</label>
-            <input type="text" class="form-control" id="name" name="name" placeholder="Name" required>
-        </div>
+    <div class="container">
+        <h2>Edit User Details</h2>
+        <form action="/update/<%= user.id %>" method="POST">
+            <div class="mb-3">
+                <label for="name" class="form-label">Name:</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Name" value="<%= user.NAME %>" required>
+            </div>
 
-        <div class="mb-3">
-            <label for="adress" class="form-label">Address:</label>
-            <input type="text" class="form-control" id="adress" name="adress" required>
-        </div>
-        <div class="mb-3">
-            <div id="err"></div>
-            <label for="email" class="form-label">Email:</label>
-            <input type="email" class="form-control" id="email" name="email" required>
-        </div>
-        <div>
-            <label for="Gender" >Gender</label>
-            <select name="gender" id="gender" >
-                <option value="" disabled selected>Select Gender</option>
-                <option value="male">Male</option>
-                <option value="Female">Female</option>
-            </select>
-        </div>
-        <div>Give your comment below:- <br><textarea name="cmt" rows="10" cols="50"
-                placeholder="Please write hear"></textarea>
-        </div>
-        <div> Chose Your Subject <input list="Subject" name="Subject">
-            <datalist id="Subject">
-                <option value="C++">C++</option>
-                <option value="Java">Java</option>
-                <option value="JavaScript">JavaScript</option>
-            </datalist>
-        </div>
-        <div>Your Capcity(0to 10)
-            <input type="range" name="range" min="0" max="10" id="range">
-            <p>Value: <span id="demo"></span></p>
-       
-        <div> Chouse your favirout programing language <br>
-              <label for="html"></label>
-             <input type="radio" id="html" name="fl" value="HTML">
-              <label for="html">HTML</label><br>
-              <input type="radio" id="css" name="fl" value="CSS">
-              <label for="css">CSS</label><br>
-              <input type="radio" id="javascript" name="fl" value="JavaScript">
-              <label for="javascript">JavaScript</label><br><br>
-        </div>
-        <div> Check box <br>
-            <input type="checkbox" name="v1" id="v1" value="bike">
-            <label for="v1" >I have bike</label>
-            <input type="checkbox" name="v2" id="v2" value="car">
-            <label for="v2" >I have car</label>
-            <input type="checkbox" name="v3" id="v3" value="both">
-            <label for="v3" >I have both </label>
+            <div class="mb-3">
+                <label for="adress" class="form-label">Address:</label>
+                <input type="text" class="form-control" id="adress" name="adress" value="<%= user.ADRESS %>" required>
+            </div>
 
-        </div>
-        <div> <label for="color"></label>select your fav color <br>
-            <input type="color" name="color" required>
-        </div>
-       
-        </select>
-        <div>
-             <label for="birthday">Birthday:</label>
-             <input type="date" name="birthday">
-        </div>
-        <div> 
-            <label for="Djoin">Month Of joning</label>
-            <input type="date" name="djoin" id="djoin">
-        </div>
-        <div>
-              <label for="fw">Quantity of Cigrate(in one day)</label>
-              <input type="number" name="fw" min="0" max="20">
-        </div>
-        <div>
-             <label for="phon">Enter Phone no</label>
-             <input type="tel" id="phon" name="phon" pattern="[0-9]{10}" required>
-        </div>
-        <button type="submit" class="btn btn-success">Update</button> </div>
-        <div>
-        </div>
-    </form>
-</fieldset>
-<script>
-    var slider = document.getElementById("range");
-    var output = document.getElementById("demo");
-    output.innerHTML = slider.value;
-    
-    slider.oninput = function() {
-      output.innerHTML = this.value;
-    }
+            <div class="mb-3">
+                <div id="err"></div>
+                <label for="email" class="form-label">Email:</label>
+                <input type="email" class="form-control" id="email" name="email" value="<%= user.EMAIL %>" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="gender">Gender</label>
+                <select name="gender" id="gender" required>
+                    <option value="" disabled>Select Gender</option>
+                    <option value="male" <%= user.gender === 'male' ? 'selected' : '' %>>Male</option>
+                    <option value="female" <%= user.gender === 'female' ? 'selected' : '' %>>Female</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="comment">Comment:</label>
+                <textarea class="form-control" name="comment" rows="3" placeholder="Please write here"><%= user.comment %></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label for="subject">Choose Your Subject:</label>
+                <input list="Subject" name="subject" value="<%= user.subject %>">
+                <datalist id="Subject">
+                    <option value="C++"></option>
+                    <option value="Java"></option>
+                    <option value="JavaScript"></option>
+                </datalist>
+            </div>
+
+            <div class="mb-3">
+                <label for="capacity">Your Capacity (0 to 10)</label>
+                <input type="range" name="capacity" min="0" max="10" id="range" value="<%= user.capacity %>">
+                <p>Value: <span id="demo"><%= user.capacity %></span></p>
+            </div>
+
+            <div class="mb-3">
+                <label>Choose your favorite programming language</label><br>
+                <input type="radio" id="html" name="fl" value="HTML" <%= user.programing_language === 'HTML' ? 'checked' : '' %>>
+                <label for="html">HTML</label><br>
+                <input type="radio" id="css" name="fl" value="CSS" <%= user.programing_language === 'CSS' ? 'checked' : '' %>>
+                <label for="css">CSS</label><br>
+                <input type="radio" id="javascript" name="fl" value="JavaScript" <%= user.programing_language === 'JavaScript' ? 'checked' : '' %>>
+                <label for="javascript">JavaScript</label><br>
+            </div>
+
+            <div class="mb-3">
+                <label>Check boxes</label><br>
+                <input type="checkbox" name="v1" id="v1" value="bike" <%= user.bike ? 'checked' : '' %>>
+                <label for="v1">I have a bike</label><br>
+                <input type="checkbox" name="v2" id="v2" value="car" <%= user.car ? 'checked' : '' %>>
+                <label for="v2">I have a car</label><br>
+                <input type="checkbox" name="v3" id="v3" value="both" <%= user.h_both ? 'checked' : '' %>>
+                <label for="v3">I have both</label>
+            </div>
+
+            <div class="mb-3">
+                <label for="color">Select your favorite color:</label>
+                <input type="color" name="color" value="<%= user.fav_color %>" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="birthday">Birthday:</label>
+                <input type="date" name="birthday" value="<%= user.birthday %>">
+            </div>
+
+            <div class="mb-3">
+                <label for="djoin">Month of Joining:</label>
+                <input type="date" name="djoin" value="<%= user.month_ofJoin %>">
+            </div>
+
+            <div class="mb-3">
+                <label for="fw">Quantity of Cigarettes (in one day):</label>
+                <input type="number" name="fw" min="0" max="20" value="<%= user.Quantity_ofC %>">
+            </div>
+
+            <div class="mb-3">
+                <label for="phon">Enter Phone No:</label>
+                <input type="tel" id="phon" name="phon" pattern="[0-9]{10}" value="<%= user.phon_number %>" required>
+            </div>
+
+            <button type="submit" class="btn btn-success">Update</button>
+        </form>
+    </div>
+
+    <script>
+        var slider = document.getElementById("range");
+        var output = document.getElementById("demo");
+        output.innerHTML = slider.value;
+
+        slider.oninput = function() {
+            output.innerHTML = this.value;
+        }
     </script>
 </body>
 </html>

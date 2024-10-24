@@ -39,6 +39,12 @@ app.use(session({
 
 app.set('view engine', 'ejs'); 
 
+function formDate(date){
+    const day= String(date.getDate()).padStart(2,'0');
+    const month=String(date.getMonth()+1).padStart(2,'0');
+    const year=date.getFullYear();
+    return `${day}-${month}-${year}`;
+}
 // Routes
 app.get('/', (req, res) => {
     res.render('index.ejs');
@@ -75,6 +81,10 @@ app.get('/list', (req, res) => {
             console.error('Error fetching data:', err);
             return res.status(500).send('Error found');
         }
+        results.forEach(user=>{
+            user.birthday=formDate(new Date(user.birthday));
+            user.month_ofJoin=formDate(new Date(user.month_ofJoin));
+                })
         res.render('list.ejs', { user_d: results });
     });
 });
@@ -112,17 +122,18 @@ app.get("/edit/:id",(req,res)=>{
 })
 app.post('/update/:id',(req,res)=>{
     const userID=req.params.id;
-    const { name, email, address, gender, comment, subject, capacity, programing_language, bike, car, h_both, fav_color, birthday, month_ofJoin, Quantity_ofC, phon_number } = req.body;
+    const { name,  adress,email, gender, comment, subject, capacity, programing_language, bike, car, h_both, color, birthday,djoin, fw, phon } = req.body;
     const query = `
         UPDATE user_d 
-        SET NAME = ?, EMAIL = ?, ADRESS = ?, gender = ?, comment = ?, subject = ?, capacity = ?, programing_language = ?, bike = ?, car = ?, h_both = ?, fav_color = ?, birthday = ?, month_ofJoin = ?, Quantity_ofC = ?, phon_number = ? 
+        SET NAME = ?,  ADRESS = ?,EMAIL = ?, gender = ?, comment = ?, subject = ?, capacity = ?, programing_language = ?, bike = ?, car = ?, h_both = ?, fav_color = ?, birthday = ?, month_ofJoin = ?, Quantity_ofC = ?, phon_number = ? 
         WHERE id = ?`;
-        db.query(query, [name, email, address, gender, comment, subject, capacity, programing_language, bike, car, h_both, fav_color, birthday, month_ofJoin, Quantity_ofC, phon_number, userID], (err, results) => {
+        db.query(query, [name, adress,email, gender, comment, subject, capacity, programing_language, bike, car, h_both, color, birthday, djoin, fw, phon, userID], (err, results) => {
             if (err) {
                 console.error('Error updating user:', err);
-                return res.status(500).send('Error updating user');
+                return res.status(500).send('Error updating user'+err.message);
             }
-            res.redirect('/views'); 
+            console.log('Update successful:', results);
+            res.redirect(`/view${userID}`); 
         });
 })
 app.get('/add', (req, res) => {
